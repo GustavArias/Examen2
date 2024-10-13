@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD con Thymeleaf y Bootstrap</title>
+    <!-- Estilos de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Lista Empleado</h2>
+
+		<a th:href="@{/registrar_usuario}" class="btn btn-primary">Registrar</a>
+        <!-- Tabla de usuarios -->
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th>Dni</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Fecha Nacimiento</th>
+                    <th>Direccion</th>
+                    <th>Correo</th>
+                    <th>Area</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user : ${lst_empleado}">
+                    <td th:text="${user.dniempleado}"></td>
+                    <td th:text="${user.nombre}"></td>
+                    <td th:text="${user.apellido}"></td>
+                    <td th:text="${user.fechaNacimiento}"></td>
+                    <td th:text="${user.direccion}"></td>
+                    <td th:text="${user.correo}"></td>
+                    <td th:text="${user.areaEntity.nombreArea}"></td>
+                    
+                    
+                    <td>
+                    <a th:href="@{/detalle_empleado/{id}(id=${user.dniempleado})}" class="btn btn-info">Ver</a> |
+                    <a th:href="@{/editar_empleado/{id}(id=${user.dniempleado})}" class="btn btn-warning">Editar</a>  
+                        
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Scripts de Bootstrap y jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

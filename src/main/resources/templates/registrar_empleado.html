@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Empleado</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h2>Registro de Usuario</h2>
+    <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+        <span th:text="${errorMessage}"></span>
+    </div>
+    <form th:action="@{/registrar_empleado}" th:object="${user}" method="post">
+          <div class="form-group">
+            <label for="dni">DNI:</label>
+            <input type="text" class="form-control" id="dni" th:field="*{dniempleado}" placeholder="Ingrese su DNI" required>
+        </div>
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" class="form-control" id="nombre" th:field="*{nombre}" placeholder="Ingrese su nombre" required>
+        </div>
+        <div class="form-group">
+            <label for="apellido">Apellido:</label>
+            <input type="text" class="form-control" id="apellido" th:field="*{apellido}" placeholder="Ingrese su apellido" required>
+        </div>
+        <div class="form-group">
+            <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+            <input type="date" class="form-control" id="fecha_nacimiento" th:field="*{fechaNacimiento}" required>
+        </div>
+        <div class="form-group">
+            <label for="direccion">Dirección:</label>
+            <input type="text" class="form-control" id="direccion" th:field="*{direccion}" placeholder="Ingrese su dirección" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="correo">Correo electrónico:</label>
+            <input type="email" class="form-control" id="correo" th:field="*{correo}" placeholder="Ingrese su correo electrónico" required>
+        </div>
+        <div class="form-group">
+                <label for="AreaEntity">Area</label>
+                <select th:field="*{areaEntity}" class="form-control" id="areaEntity" required>
+                    <option th:each="area : ${area}" 
+                            th:value="${areaEntity.areaId}" 
+                            th:text="${areaEntity.nombreArea}">
+                    </option>
+                </select>
+            </div>
+   
+        
+        <a th:href="@{/listar_empleado}" class="btn btn-secondary">Regresar</a>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+</div>
+</body>
+</html>
+
