@@ -1,5 +1,9 @@
 package pe.com.cibertec.model;
 
+import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,19 +16,19 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
+
 
 @Entity
 @Table(name = "tb_empleado")
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
-@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class EmpleadoEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "dni_empleado")
 	private Integer dniempleado;
 	
 	@Column(name = "nombre_empleado", nullable = false, length = 45)
@@ -33,8 +37,9 @@ public class EmpleadoEntity {
 	@Column(name = "apellido_empleado", nullable = false, length = 45)
 	private String apellido;
 
-	@Column(name = "fecha_nacimiento", nullable = false,columnDefinition = "DATE")
-	private String fechaNacimiento;
+	@Column(name = "fecha_nacimiento", nullable = false)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate fechaNacimiento;
 	
 	@Column(name = "direccion", nullable = false,length = 45)
 	private String direccion;
@@ -43,14 +48,8 @@ public class EmpleadoEntity {
 	private String correo;
 	
 	@ManyToOne
-	@JoinColumn(name = "area_id", nullable = false)
+	@JoinColumn(name = "fk_area", nullable = false)
 	private AreaEntity areaEntity;
 	
 	
 }
-
-/*
-@ManyToOne
-@JoinColumn(name = "fk_tipo", nullable = false)
-private TipoEntity tipoEntity;
-*/

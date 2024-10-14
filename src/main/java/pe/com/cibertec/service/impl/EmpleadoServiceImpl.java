@@ -23,18 +23,18 @@ public class EmpleadoServiceImpl implements EmpleadoService{
 	}
 
 	@Override
-	public EmpleadoEntity buscarUsuarioPorId(Integer id) {
-		
-		return empleadoRepository.findById(id).get();
-	}
-
-	@Override
 	public void crearEmpleado(EmpleadoEntity empleadoEntity) {
 		
 		empleadoRepository.save(empleadoEntity);
 		
 	}
-
+	
+	@Override
+	public EmpleadoEntity buscarUsuarioPorId(Integer id) {
+		
+		return empleadoRepository.findById(id).get();
+	}
+	
 	@Override
 	public void actualizarEmpleado(Integer id, EmpleadoEntity empleadoNuevo) {
 		EmpleadoEntity empleadoEncontrado = buscarUsuarioPorId(id);

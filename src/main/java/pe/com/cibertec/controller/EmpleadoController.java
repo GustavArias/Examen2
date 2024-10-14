@@ -8,26 +8,30 @@ import org.springframework.ui.Model;
 
 import pe.com.cibertec.model.AreaEntity;
 import pe.com.cibertec.model.EmpleadoEntity;
-
+import pe.com.cibertec.service.AreaService;
 import pe.com.cibertec.service.EmpleadoService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 
 
 
 @Controller
+
 public class EmpleadoController {
 	
 	@Autowired
 	private EmpleadoService empleadoService;
 	
+	@Autowired
+	private AreaService areaService;
 	
 	
 	@GetMapping("/listar_empleado")
-	public String home(Model model) {
+	public String listarEmpleado(Model model) {
 		List<EmpleadoEntity>listaEmpleado = empleadoService.buscarTodosEmpleados();
 		model.addAttribute("lst_empleado",listaEmpleado);
 		
@@ -51,15 +55,16 @@ public class EmpleadoController {
 	
 	@GetMapping("/registrar_usuario")
 	public String mostrarRegistrarEmpleado(Model model) {
-		
+		List<AreaEntity>listaArea = areaService.listarArea();
+		model.addAttribute("area",listaArea);
 		model.addAttribute("user", new EmpleadoEntity());
 		
 		return "registrar_empleado";
 	}
 	
-	@PostMapping("/registrar_usuario")
-	public String registrarEmpleado(@ModelAttribute("user")EmpleadoEntity user, Model model) {
-		empleadoService.crearEmpleado(user);
+	@PostMapping("/registrar_empleado")
+	public String registrarEmpleado(@ModelAttribute("empleado")EmpleadoEntity emple,Model model) {
+		empleadoService.crearEmpleado(emple);
 		
 		
 		return "redirect:/listar_empleado";
